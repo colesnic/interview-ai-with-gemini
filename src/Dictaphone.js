@@ -1,8 +1,9 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-import { useState } from 'react';
 import { styled } from '@mui/joy/styles';
 import Sheet from '@mui/joy/Sheet';
 import Grid from '@mui/joy/Grid';
@@ -14,16 +15,25 @@ import ButtonGroup from '@mui/joy/ButtonGroup';
 import Box from '@mui/joy/Box';
 import CircularProgress from '@mui/joy/CircularProgress';
 
-import './Dictaphone.css'
+import './dictaphone-style.css'
 import RecruiterCard from './RecruiterCard';
-import GoalWordProgress from './GoalWordProgress'; 
 
-const styles = {
-    keyWordStyle: {
-        color: 'red',
-        // 'font-weight': 'normal'
+function renderGoalWords(keyWords, transcript) {
+  let words = []
+  for (let i = 0; i < keyWords.length; i++) {
+   if (transcript.length > 0) {
+    if (transcript.toLowerCase().includes(keyWords[i].toLowerCase())) {
+      words.push(<div style={{color: 'green'}}>{keyWords[i]}</div>)
+    } else {
+      words.push(<div style={{color: 'red'}}>{keyWords[i]}</div>)
     }
-}
+   } else {
+      words.push(<div style={{color: 'red'}}>{keyWords[i]}</div>)
+    }
+  }
+  return <tbody>{words}</tbody>;
+ }
+
 const Item = styled(Sheet)(({ theme }) => ({
     backgroundColor:
       theme.palette.mode === 'dark' ? theme.palette.background.level1 : '#fff',
@@ -48,6 +58,17 @@ const Dictaphone = () => {
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
+  useEffect(() => {
+    let newMatches = 0;
+    for (let i = 0; i < keyWords.length; i++) {
+      if (transcript.toLowerCase().includes(keyWords[i].toLowerCase())) {
+        newMatches++;
+      }
+    }
+    setMatches(newMatches);
+  }, [transcript]); // Dependency array ensures effect runs on transcript changes
+
+
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -56,7 +77,6 @@ const Dictaphone = () => {
   function restartPrompt() {
     resetTranscript()
     setResponse('')
-    styles.keyWordStyle.color = 'black'
   }
 
   async function GenerateCritique(question, transcript) { // Add 'async' here
@@ -87,37 +107,15 @@ const Dictaphone = () => {
     console.log(response);
 };
 
-function handleKeyWords() {
-    if (transcript.split(' ').includes(keyWords)) {
-        styles.keyWordStyle.color = 'green'
-    }
-}
-
-function renderGoalWords(keyWords, matches, setMatches) {
- let words = []
-
- for (let i = 0; i < keyWords.length; i++) {
-  if (transcript.includes(keyWords[i])) {
-    words.push(<div style={{color: 'green'}}>{keyWords[i]}</div>)
-    setMatches(matches + 1)
-  } else {
-    words.push(<div style={{color: 'red'}}>{keyWords[i]}</div>)
-  }
- }
- return <tbody>{words}</tbody>;;
-}
-
   return (
-    <div>
-        {handleKeyWords()}
+    <div className='applet'>
       <p>Microphone: {listening ? 'on' : 'off'}</p>
       <div className='question'>
         <Card variant="solid">
             <CardContent>
-            <Typography level="title-md" textColor="inherit">
-                {question}
-            </Typography>
-            <Typography textColor="inherit"></Typography>
+              <Typography level="title-md" textColor="inherit">
+                  {question}
+              </Typography>
             </CardContent>
         </Card></div><div className='question'>
         <ButtonGroup sx={{ p: 1, borderColor: 'text.primary'}} aria-label="solid button group">
@@ -129,16 +127,23 @@ function renderGoalWords(keyWords, matches, setMatches) {
       </div>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
       <Grid xs={8}>
-        <Item><p>{transcript}</p></Item>
+        <Item ><p>{transcript}</p></Item>
       </Grid>
       <Grid xs={4}>
-        <Item>
-        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
-      <CircularProgress size="lg" determinate value={66.67}>
+        <Item sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', // Arrange items vertically
+      alignItems: 'center',    // Center horizontally
+      justifyContent: 'center', // Center vertically
+      textAlign: 'center',
+      height: '100%' // Ensure Item takes up full height of Grid 
+    }}>
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', textAlign: 'center',flexWrap: 'wrap' }}>
+      <CircularProgress size="lg" determinate value={(matches / keyWords.length)*100}>
         {matches} / {keyWords.length}
       </CircularProgress>
     </Box>
-        <div>Goal words: {renderGoalWords(keyWords, matches, setMatches)}</div>
+    <div><h1>Goal words:</h1> <h3>{renderGoalWords(keyWords, transcript)}</h3></div>
         </Item>
       </Grid>
       <Grid xs={4}>

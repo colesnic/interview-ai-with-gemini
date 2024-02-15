@@ -3,3 +3,9 @@
     justify-content: center;
     margin: 15px;
   }
+
+.applet {
+  width: 80%;
+  margin-left: auto;   /* Centers horizontally */
+  margin-right: auto;  /* Centers horizontally */
+}

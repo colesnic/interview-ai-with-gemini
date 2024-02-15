@@ -1,0 +1,80 @@
+/* Base Styles */
+body {
+    background-color: #121520; /* Dark background */
+    color: #e0e0e0; /* Light, futuristic text color */
+    font-family: 'Roboto Mono', monospace; /* Sci-fi inspired font */
+  }
+  
+  .applet {
+    width: 80%;
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 20px;
+    padding-top: 20px;
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #1e2230, #161a26); /* Subtle gradient */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
+  }
+  
+  /* Question Card */
+  .question {
+    margin-bottom: 20px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .question .MuiCard-root {
+    background-color: #202638;
+    border: 1px solid #5050ff; /* Futuristic accent color */
+    box-shadow: 0 2px 6px rgba(80, 80, 255, 0.3); 
+  }
+  
+  .question .MuiTypography-root {
+    color: #90caf9; /* Light blue for the question text */
+  }
+  
+  /* Button Group */
+  .MuiButtonGroup-root {
+    margin-bottom: 20px;
+  }
+  
+  .MuiButton-root {
+    background-color: #303850;
+    color: #e0e0e0;
+    border: none; /* Remove default button border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  
+  .MuiButton-root:hover {
+    background-color: #404a68;
+  }
+  
+  /* Grid Items */
+  .MuiSheet-root {
+    background: #1e2230;
+    border: 1px dashed #404040; /* subtle dashed border */
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Goal Words (Updated Styles) */
+  .MuiSheet-root h1 {
+    color: #5050ff; /* Heading color match with buttons */
+    margin-bottom: 10px;
+  }
+  
+  .MuiSheet-root h3 {
+    color: #e0e0e0; 
+  }
+  
+  /* Circular Progress  */
+  .MuiCircularProgress-root {
+    color: #5050ff; 
+  }
+  
+  /* Overall Layout */
+  .MuiGrid-container {
+    justify-content: center; /* Center Grid in 'applet' div */
+  }
+  
