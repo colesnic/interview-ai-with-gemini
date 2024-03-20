@@ -119,11 +119,12 @@ const Dictaphone = () => {
             </CardContent>
         </Card></div><div className='question'>
         <ButtonGroup sx={{ p: 1, borderColor: 'text.primary'}} aria-label="solid button group">
-            <Button onClick={SpeechRecognition.startListening}>Start</Button>
-            <Button onClick={SpeechRecognition.stopListening}>Stop</Button>
-            <Button onClick={() => GenerateCritique(question, transcript)}>Analyze</Button>
-            <Button onClick={restartPrompt}>Restart</Button>
+          <Button sx={{ color: "white" }} onClick={SpeechRecognition.startListening}>Start</Button>
+          <Button sx={{ color: "white" }} onClick={SpeechRecognition.stopListening}>Stop</Button>
+          <Button sx={{ color: "white" }} onClick={() => GenerateCritique(question, transcript)}>Analyze</Button>
+          <Button sx={{ color: "white" }} onClick={restartPrompt}>Restart</Button>
         </ButtonGroup>
+
       </div>
       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
       <Grid xs={8}>

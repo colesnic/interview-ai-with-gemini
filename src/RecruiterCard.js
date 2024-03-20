@@ -34,23 +34,6 @@ export default function RecruiterCard() {
           <BookmarkAdd />
         </IconButton>
       </div>
-      <CardContent orientation="horizontal">
-        <div>
-          <Typography level="body-xs">Total price:</Typography>
-          <Typography fontSize="lg" fontWeight="lg">
-            $2,900
-          </Typography>
-        </div>
-        <Button
-          variant="solid"
-          size="md"
-          color="primary"
-          aria-label="Explore Bahamas Islands"
-          sx={{ ml: 'auto', alignSelf: 'center', fontWeight: 600 }}
-        >
-          Explore
-        </Button>
-      </CardContent>
     </Card>
   );
 }
