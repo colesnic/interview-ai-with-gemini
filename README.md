@@ -6,4 +6,4 @@ Though this is only the MVP, users will be able to input key words they would li
 
 Further iterations will also enable users to choose the voice and response type of their AI interviewer and even complete coding assessments with a live AI interviewer probing for questions and helping them debug. 
 
-![platform-image](src/images/Screenshot 2024-03-20 at 2.33.28 PM.png)
+<img width="1249" alt="Screenshot 2024-03-20 at 2 33 28 PM" src="https://github.com/colesnic/interview-ai-with-gemini/assets/92275914/181f355e-d82d-4ad5-8fff-cf4741faa94d">
